@@ -1,0 +1,33 @@
+ORG 0300H
+	JMP MN
+	EXCH:MOV A,@R0
+			MOV R4,A
+			MOV A,R3
+			MOV @R0,A
+			DEC R0
+			MOV A,R4
+			MOV @R0,A
+			INC R0
+			JMP RETURN
+	MN:MOV R0,#30H
+		MOV A,@R0
+		MOV R1,A
+		INC R0
+		LOOP1:MOV R0,#30H
+		MOV A,@R0
+		MOV R2,A;
+		DEC R2;
+		INC R0
+		
+		LOOP2:MOV A,@R0
+			INC R0
+			MOV C,0
+			MOV R3,A
+			SUBB A,@R0
+			JC EXCH
+		RETURN:DJNZ R2, LOOP2
+		DJNZ R1,LOOP1
+		END
+		
+		
+		
